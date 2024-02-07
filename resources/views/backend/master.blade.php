@@ -29,6 +29,14 @@
   <!-- Template Main CSS File -->
   <link href="{{asset('ui/backend')}}/assets/css/style.css" rel="stylesheet">
 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{{asset('ui/frontend')}}/input.css">
+  {{-- <link rel="stylesheet" href="{{asset('ui/frontend')}}/style.css"> --}}
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.6.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Sep 18 2023 with Bootstrap v5.3.2
@@ -59,7 +67,7 @@
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
-  @include('backend.layouts.partials.footer')
+  {{-- @include('backend.layouts.partials.footer') --}}
 <!-- End Footer -->
 
   <a href="{{asset('ui/backend')}}/#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -76,6 +84,11 @@
 
   <!-- Template Main JS File -->
   <script src="{{asset('ui/backend')}}/assets/js/main.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+
+<script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 
 </body>
 

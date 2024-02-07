@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\FruitController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,16 +17,47 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-Route::get('/',[FrontendController::class,'show']);
+Route::get('/', function () {
+    return view('welcome');
+});
 
+
+//for frontend part start
+Route::get('/home',[FrontendController::class,'show']);
+Route::get('/fruit',[FrontendController::class,'fruit'])->name('fruit');
+//for frontend part end
+
+
+//for backend part start
 Route::get('/admin',[BackendController::class,'admin'])->name('admin');
+//for backend part end
 
-// Route::get('/', function () {
-//     return view('backend.master');
-// });
+//Fruit start
+Route::prefix('fruit')->group(function () {
+    Route::get('/index', [FruitController::class, 'index'])->name('fruit_index');
+    Route::get('/create', [FruitController::class, 'create'])->name('fruit_create');
+    Route::post('/store', [FruitController::class, 'store'])->name('fruit_store');
+    Route::get('/edit/{id}', [FruitController::class, 'edit'])->name('fruit_edit');
+    Route::post('/update/{id}', [FruitController::class, 'update'])->name('fruit_update');
+    Route::get('/delete/{id}', [FruitController::class, 'delete'])->name('fruit_delete');
+});
+//Fruit end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Route::get('/dashboard', function () {
