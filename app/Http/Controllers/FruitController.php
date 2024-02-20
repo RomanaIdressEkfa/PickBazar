@@ -41,11 +41,17 @@ class FruitController extends Controller
         }
     }
 
-    public function edit($id)
-    {
-        $fruit = Fruit::find($id);
-        return view('backend.layouts.Employees.edit', compact('fruit'));
-    }
+//     public function edit($id)
+//     {
+//         $fruit = Fruit::find($id);
+//         return view('backend.layouts.fruits & vegetables.fruits', compact('fruit'));
+//         // return redirect()->route('fruit_index', compact('fruit'));
+//         return redirect()->back();
+//         // return response()->json(['success' => true, 'url' => url()->previous()]);
+//         // Before redirecting, set session data
+// // return redirect()->route('fruit_index')->with(['success' => true, 'url' => url()->previous()]);
+
+//     }
 
 
     public function update(UpdateFruitRequest $request, $id)
@@ -71,4 +77,22 @@ class FruitController extends Controller
         $fruit->delete();
         return redirect()->back();
     }
+
+    // public function addToCart($id){
+    //     $fruit=Fruit::find($id);
+    //     $cart=session()->get('cart',[]);
+    //     if(isset($cart[$id])){
+    //         $cart[$id]['quantity']++;
+    //     }
+    //     else{
+    //         $cart[$id]=[
+    //             "name"=>$fruit->name,
+    //             "quantity"=>1,
+    //             "price"=>$fruit->price,
+    //             "image"=>$fruit->image,
+    //         ];
+    //     }
+    //     session()->put('cart',$cart);
+    //     return redirect()->back()->with('success','Fruit has been already to added the cart');
+    // }
 }

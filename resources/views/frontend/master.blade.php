@@ -49,23 +49,29 @@
           height: 100%;
           object-fit: cover;
         }
+        .items-center {
+       align-items: self-end!important;
+}
       </style>
 </head>
 <body>
 
 @include('frontend.navbar')
+
+
 <!-- carousel -->
 @include('frontend.carousel')
 
 <!-- carousel end-->
 @include('frontend.slider')
 
-{{-- @include('frontend.drawer') --}}
 
 
 <div class="drawer lg:drawer-open ">
     <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content flex flex-col items-center justify-center">
+
+        @include('frontend.addToCartButton')
 
 @yield('product_content')
 

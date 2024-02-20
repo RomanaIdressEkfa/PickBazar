@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\FruitController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -17,13 +18,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 //for frontend part start
-Route::get('/home',[FrontendController::class,'show']);
+Route::get('/',[FrontendController::class,'show']);
 Route::get('/fruit',[FrontendController::class,'fruit'])->name('fruit');
 //for frontend part end
 
@@ -37,12 +38,19 @@ Route::prefix('fruit')->group(function () {
     Route::get('/index', [FruitController::class, 'index'])->name('fruit_index');
     Route::get('/create', [FruitController::class, 'create'])->name('fruit_create');
     Route::post('/store', [FruitController::class, 'store'])->name('fruit_store');
-    Route::get('/edit/{id}', [FruitController::class, 'edit'])->name('fruit_edit');
+    // Route::get('/edit/{id}', [FruitController::class, 'edit'])->name('fruit_edit');
     Route::post('/update/{id}', [FruitController::class, 'update'])->name('fruit_update');
     Route::get('/delete/{id}', [FruitController::class, 'delete'])->name('fruit_delete');
 });
 //Fruit end
 
+// add to cart
+Route::get('/add_To_Cart/{id}', [FrontendController::class, 'addToCart'])->name('add_To_Cart');
+Route::get('/all_cart_page', [FrontendController::class, 'allCartPage'])->name('all_cart_page');
+
+// Route::get('/cart', 'CartController@showCart')->name('cart.show');
+// Route::post('/cart/add/{product}', 'CartController@addToCart')->name('cart.add');
+// Route::post('/cart/remove/{product}', 'CartController@removeFromCart')->name('cart.remove');
 
 
 
