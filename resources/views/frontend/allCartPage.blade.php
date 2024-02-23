@@ -37,13 +37,6 @@
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-  <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Updated: Sep 18 2023 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 
 </head>
 
@@ -51,7 +44,7 @@
 
 <div class="container border border-light shadow p-4 rounded">
     <h3 class=" text-primary mb-4 text-center" style='font-weight:bold'>ALL CART LIST</h3>
-  <table class="table table-bordered rounded table-sm">
+  <table id="cart" class="table table-bordered rounded table-sm">
     <thead >
       <tr >
         <th class="bg-dark bg-gradient text-white w-80">IMAGE</th>
@@ -73,29 +66,18 @@
 @endphp
 
         <tr data-id="{{$id}}">
-            <td>
-                    <img style="width:200px;" src="{{ asset('images/fruits/')}}/{{$details['image']}}" alt="image">
-
-            </td>
-            <td>{{$details['name']}}</td>
-            <td>
-                {{$details['price']}}
-            </td>
+            <td data-th="Image"> <img style="width:200px;" src="{{ asset('images/fruits/')}}/{{$details['image']}}" alt="image"></td>
+            <td data-th="Name">{{$details['name']}}</td>
+            <td data-th="Price">{{$details['price']}}</td>
             <td data-th="Quantity">
-                <input type="number" value="{{$details['quantity']}}" class="form-control quantity " min="1" />
-
+                <input type="number" value="{{$details['quantity']}}" class="form-control quantity cart_update " min="1" />
             </td>
-            <td>{{$details['price']*$details['quantity']}}</td>
+            <td data-th="Subtotal">{{$details['price']*$details['quantity']}}</td>
 
 
             {{-- <td style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{$customer->address}}</td> --}}
-            <td>
-                {{-- <a data-modal-target="crud-modal-2_{{$fruit->id}}" data-modal-toggle="crud-modal-2_{{$fruit->id}}"  type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Edit</a> --}}
-
-                {{-- <button  data-modal-target="crud-modal-2" data-modal-toggle="crud-modal-2"  class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-                    Edit
-                   </button> --}}
-                <a href="#" onclick="return confirm('Are you sure to delete?')" type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</a>
+            <td class="actions" data-th="">
+                <button class="btn btn-danger btn-sm cart_remove"><i class="fa fa-trash-o"></i> Delete</button>
             </td>
           </tr>
 
@@ -107,17 +89,65 @@
         <tr>
             <td colspan="5" style="text-align: right"> <h3><strong>Total ${{$total}}</strong></h3></td>
         </tr>
-        <tr>
-            <td colspan="5" style="text-align: right">
-                <a href="{{url('/')}}" class="btn btn-danger"><i class="fa fa-arrow-left"></i>CONTINUE SHOPPING </a>
-<button class="btn btn-success" type="submit" id="checkout-live-button"><i class="fa fa-money"></i>
-    CHECKOUT
-</button>
-            </td>
-        </tr>
+        <td colspan="5" style="text-align:right;">
+            <form action="/session" method="POST">
+            <a href="{{ url('/') }}" class="btn btn-danger"> <i class="fa fa-arrow-left"></i> Continue Shopping</a>
+            <input type="hidden" name="_token" value="{{csrf_token()}}">
+            <button class="btn btn-success" type="submit" id="checkout-live-button"><i class="fa fa-money"></i> Checkout</button>
+            </form>
+        </td>
     </tfoot>
   </table>
 </div>
+
+@section('scripts')
+<script type="text/javascript">
+
+    $(".cart_update").change(function (e) {
+        e.preventDefault();
+
+        var ele = $(this);
+
+        $.ajax({
+            url: '{{route('update_For_Cart') }}',
+            method: "patch",
+            data: {
+                _token: '{{ csrf_token() }}',
+                id: ele.parents("tr").attr("data-id"),
+                quantity: ele.parents("tr").find(".quantity").val()
+            },
+            success: function (response) {
+               window.location.reload();
+            }
+        });
+    });
+
+    $(".cart_remove").click(function (e) {
+        e.preventDefault();
+
+        var ele = $(this);
+
+        if(confirm("Do you really want to remove?")) {
+            $.ajax({
+                url: '{{ route('remove_from_cart') }}',
+                method: "DELETE",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: ele.parents("tr").attr("data-id")
+                },
+                success: function (response) {
+                    window.location.reload();
+                }
+            });
+        }
+    });
+
+</script>
+@endsection
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script> --}}
+
 
  <!-- Vendor JS Files -->
  <script src="{{asset('ui/backend')}}/assets/vendor/apexcharts/apexcharts.min.js"></script>

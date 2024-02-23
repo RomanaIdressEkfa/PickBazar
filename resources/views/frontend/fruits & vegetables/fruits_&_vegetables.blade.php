@@ -17,29 +17,6 @@
         @endforeach
     </div>
 
-    {{-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.add-to-cart-btn').on('click', function() {
-                var productId = $(this).data('product-id');
 
-                // Send an AJAX request to add the product to the cart
-                $.ajax({
-                    type: 'POST',
-                    url: '/cart/add/' + productId,
-                    data: {
-                        '_token': '{{ csrf_token() }}',
-                    },
-                    success: function(response) {
-                        // Update the cart count or display a success message
-                        alert('Product added to cart!');
-                    },
-                    error: function(error) {
-                        console.error('Error adding product to cart:', error);
-                    }
-                });
-            });
-        });
-    </script> --}}
 
 @endsection

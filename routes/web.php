@@ -47,6 +47,8 @@ Route::prefix('fruit')->group(function () {
 // add to cart
 Route::get('/add_To_Cart/{id}', [FrontendController::class, 'addToCart'])->name('add_To_Cart');
 Route::get('/all_cart_page', [FrontendController::class, 'allCartPage'])->name('all_cart_page');
+Route::patch('/update_For_Cart', [FrontendController::class, 'updateForCart'])->name('update_For_Cart');
+Route::delete('/remove_from_cart', [FrontendController::class, 'removeFromCart'])->name('remove_from_cart');
 
 // Route::get('/cart', 'CartController@showCart')->name('cart.show');
 // Route::post('/cart/add/{product}', 'CartController@addToCart')->name('cart.add');

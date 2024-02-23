@@ -87,3 +87,19 @@
           </div>
       </div>
   </div>
+  <div class="container">
+
+    @if(session('success'))
+        <div class="alert alert-success">
+          {{ session('success') }}
+        </div>
+    @endif
+</div>
+
+    @yield('scripts')
+    
+
+
+{{-- // for jquery// --}}
+{{-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
